@@ -1,6 +1,6 @@
 {
   "name": "bespoke-markdown",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Allows you to use Markdown for the content of your slides",
   "homepage": "https://github.com/aaronpowell/bespoke-markdown",
   "bugs": "https://github.com/aaronpowell/bespoke-markdown/issues",
@@ -19,7 +19,7 @@
     "coveralls": "gulp coveralls"
   },
   "peerDependencies": {
-    "bespoke": ">=1.0.0-beta.1",
+    "bespoke": ">=1.0.0-beta",
     "marked": "0.3.2"
   },
   "devDependencies": {

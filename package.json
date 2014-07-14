@@ -1,0 +1,64 @@
+{
+  "name": "bespoke-markdown",
+  "version": "0.0.0",
+  "description": "Allows you to use Markdown for the content of your slides",
+  "homepage": "https://github.com/aaronpowell/bespoke-markdown",
+  "bugs": "https://github.com/aaronpowell/bespoke-markdown/issues",
+  "author": {
+    "name": "Aaron Powell",
+    "url": "https://github.com/aaronpowell",
+    "email": "me@aaron-powell.com"
+  },
+  "main": "./lib/bespoke-markdown.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/aaronpowell/bespoke-markdown.git"
+  },
+  "scripts": {
+    "test": "gulp",
+    "coveralls": "gulp coveralls"
+  },
+  "peerDependencies": {
+    "bespoke": ">=1.0.0-beta.1",
+    "marked": "0.3.2"
+  },
+  "devDependencies": {
+    "bespoke": "^1.0.0",
+    "bespoke-keys": "^1.0.0",
+    "bespoke-touch": "^1.0.0",
+    "browserify": "^4.1.5",
+    "function-bind": "^0.1.0",
+    "gulp": "^3.5.1",
+    "gulp-clean": "^0.2.4",
+    "gulp-coveralls": "^0.1.0",
+    "gulp-header": "^1.0.2",
+    "gulp-jshint": "^1.3.4",
+    "gulp-karma": "0.0.2",
+    "gulp-rename": "^1.2.0",
+    "gulp-uglify": "^0.3.0",
+    "istanbul": "^0.2.11",
+    "jshint-stylish": "^0.1.5",
+    "karma": "^0.10.9",
+    "karma-browserify": "^0.2.1",
+    "karma-coverage": "^0.1.5",
+    "karma-jasmine": "^0.1.5",
+    "karma-phantomjs-launcher": "^0.1.4",
+    "lodash": "^2.4.1",
+    "vinyl-buffer": "0.0.0",
+    "vinyl-map": "^1.0.1",
+    "vinyl-source-stream": "^0.1.1",
+    "marked": "0.3.2"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "licenses": [
+    {
+      "type": "MIT"
+    }
+  ],
+  "keywords": [
+    "bespoke-plugin",
+    "markdwon"
+  ]
+}

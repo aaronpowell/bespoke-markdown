@@ -11,7 +11,7 @@ describe("bespoke-markdown", function() {
       var parent = document.createElement('article');
       for (var i = 0; i < 10; i++) {
         var slide = document.createElement('section');
-        slide.innerHTML = '# ' + i;
+        slide.innerHTML = 'just a __bold__ text ' + i;
         parent.appendChild(slide);
       }
 
@@ -29,7 +29,7 @@ describe("bespoke-markdown", function() {
     });
 
     it("should have parsed the slide from markdown to html", function() {
-      expect(deck.slides[0].innerHTML).toBe('<h1>1</h1>');
+      expect(deck.slides[0].innerHTML.trim()).toBe('<p>just a <strong>bold</strong> text 0</p>');
     });
 
   });

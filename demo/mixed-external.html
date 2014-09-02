@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width" />
+    <title>bespoke-markdown demo</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="stylesheet" type="text/css" href="../node_modules/highlight.js/styles/monokai_sublime.css" />
+  </head>
+  <body class="sample-presentation">
+
+    <article>
+      <section data-markdown>
+# &lt; [Back](index.html)
+
+This is a sample usage of [bespoke-markdown](https://github.com/aaronpowell/bespoke-markdown)
+using **mixed html in the content and external markdown files** for the slides.
+
+For reference, look for this file in this plugin folder structure:
+  - `demo/mixed-external.html`
+  - `demo/slide-cover.md`
+
+<br><br>
+
+Please, proceed to the next slide.
+
+      </section>
+      <section data-markdown>
+The structure of the html of a presentation:
+
+```html
+<article>
+  <section data-markdown="slide-cover.md"></section>
+  <section>
+    <h1>Another slide</h1>
+    <p>This is the first slide of my presentation.</p>
+    <p>It is written in plain HTML.</p>
+    <p>Note that the third slide points to a .md
+      file that does not exist. So it shows an
+      error message</p>
+  </section>
+  <section data-markdown="does-not-exist-md"></section>
+</article>
+```
+
+Slides with the `data-markdown` attribute will be rendered as markdown, and
+the slides without it as html (either `data-markdown` or `data-markdown=""`
+will work).
+
+Go to the next slides to **see how that code gets rendered**.
+      </section>
+      <section data-markdown="slide-cover.md"></section>
+      <section>
+        <h1>Another slide</h1>
+        <p>This is the first slide of my presentation.</p>
+        <p>It is written in plain HTML.</p>
+        <p>Note that the third slide points to a .md
+          file that does not exist. So it shows an
+          error message</p>
+      </section>
+      <section data-markdown="does-not-exist-md"></section>
+    </article>
+
+    <script src="../node_modules/bespoke/dist/bespoke.js"></script>
+    <script src="../node_modules/bespoke-keys/dist/bespoke-keys.js"></script>
+    <script src="../node_modules/bespoke-touch/dist/bespoke-touch.js"></script>
+    <script src="../node_modules/bespoke-classes/dist/bespoke-classes.js"></script>
+    <script src="../node_modules/bespoke-progress/dist/bespoke-progress.js"></script>
+    <script src="../dist/bespoke-markdown.js"></script>
+    <script src="demo.js"></script>
+  </body>
+</html>

@@ -1,19 +1,24 @@
 var gulp = require('gulp'),
-  clean = require('gulp-clean'),
-  jshint = require('gulp-jshint'),
-  map = require('vinyl-map'),
-  istanbul = require('istanbul'),
-  karma = require('gulp-karma'),
-  coveralls = require('gulp-coveralls'),
-  header = require('gulp-header'),
-  rename = require('gulp-rename'),
-  uglify = require('gulp-uglify'),
-  pkg = require('./package.json'),
-  browserify = require('browserify'),
-  source = require('vinyl-source-stream'),
-  buffer = require('vinyl-buffer'),
-  path = require('path'),
-  template = require('lodash').template;
+    gutil = require('gulp-util'),
+    ghpages = require('gh-pages'),
+    clean = require('gulp-clean'),
+    jshint = require('gulp-jshint'),
+    map = require('vinyl-map'),
+    istanbul = require('istanbul'),
+    karma = require('karma').server,
+    coveralls = require('gulp-coveralls'),
+    header = require('gulp-header'),
+    rename = require('gulp-rename'),
+    uglify = require('gulp-uglify'),
+    pkg = require('./package.json'),
+    browserify = require('browserify'),
+    merge = require('merge-stream'),
+    source = require('vinyl-source-stream'),
+    buffer = require('vinyl-buffer'),
+    path = require('path'),
+    replace = require('gulp-replace'),
+    template = require('lodash').template,
+    webserver = require('gulp-webserver');
 
 gulp.task('default', ['clean', 'lint', 'test', 'compile']);
 gulp.task('dev', ['compile', 'lint', 'test', 'watch']);
@@ -24,7 +29,7 @@ gulp.task('watch', function() {
 });
 
 gulp.task('clean', function() {
-  return gulp.src(['dist', 'lib-instrumented', 'test/coverage'], { read: false })
+  return gulp.src(['dist', 'lib-instrumented', 'test/coverage', 'demo-dist'], { read: false })
     .pipe(clean());
 });
 
@@ -44,9 +49,10 @@ gulp.task('instrument', function() {
     .pipe(gulp.dest('lib-instrumented'));
 });
 
-gulp.task('test', ['clean', 'instrument'], function() {
-  return gulp.src(['test/spec/*Spec.js'])
-    .pipe(karma({ configFile: 'karma.conf.js' }));
+gulp.task('test', ['clean', 'instrument'], function(done) {
+  karma.start({
+    configFile: __dirname + '/karma.conf.js'
+  });
 });
 
 gulp.task('coveralls', ['test'], function() {
@@ -77,4 +83,51 @@ gulp.task('compile', ['clean'], function() {
       '<%= licenses[0].type %> License */\n'
     ].join(''), pkg)))
     .pipe(gulp.dest('dist'));
+});
+
+
+gulp.task('demo', ['deploy-dependencies'], function() {
+  gulp.src('demo-ghpages')
+    .pipe(webserver({
+      open: true,
+      livereload: true,
+      directoryListing: true
+    }));
+});
+
+
+// lists dependencies of the demo htmls
+var deployDependencies = [
+  'node_modules/highlight.js/styles/monokai_sublime.css',
+  'node_modules/bespoke/dist/bespoke.js',
+  'node_modules/bespoke-keys/dist/bespoke-keys.js',
+  'node_modules/bespoke-touch/dist/bespoke-touch.js',
+  'node_modules/bespoke-classes/dist/bespoke-classes.js',
+  'node_modules/bespoke-progress/dist/bespoke-progress.js',
+  'dist/bespoke-markdown.js'
+];
+
+gulp.task('deploy-dependencies:dynamic', ['deploy-dependencies:static'], function() {
+  // changes the html files to point to the "local" dependencies
+  var stream = gulp.src('demo/*.html');
+  deployDependencies.forEach(function(dep) {
+    var pathWithoutFileName = dep.substr(0, dep.lastIndexOf('/')),
+        pathRegex = new RegExp('../' + pathWithoutFileName);
+    stream = stream.pipe(replace(pathRegex, 'lib'));
+  });
+  return stream.pipe(gulp.dest('demo-dist'));
+});
+
+gulp.task('deploy-dependencies:static', ['compile'], function() {
+  // copies over js, md, css files
+  var src = gulp.src(['demo/*.js', 'demo/*.md', 'demo/*.css'])
+        .pipe(gulp.dest('demo-dist')),
+      lib = gulp.src(deployDependencies)
+        .pipe(gulp.dest('demo-dist/lib'));
+
+  return merge(src, lib);
+})
+
+gulp.task('deploy', ['deploy-dependencies:dynamic'], function(done) {
+  ghpages.publish(path.join(__dirname, 'demo-dist'), { logger: gutil.log }, done);
 });

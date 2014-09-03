@@ -41,7 +41,6 @@
     "gulp-uglify": "^0.3.0",
     "gulp-util": "^3.0.1",
     "gulp-webserver": "^0.7.0",
-    "highlight.js": "^8.2.0",
     "istanbul": "^0.2.11",
     "jshint-stylish": "^0.1.5",
     "karma": "^0.12.22",
@@ -55,6 +54,9 @@
     "vinyl-buffer": "0.0.0",
     "vinyl-map": "^1.0.1",
     "vinyl-source-stream": "^0.1.1"
+  },
+  "dependencies": {
+    "highlight.js": "^8.2.0"
   },
   "engines": {
     "node": ">=0.10.0"

@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width" />
+    <title>bespoke-markdown demo</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="stylesheet" type="text/css" href="lib/monokai_sublime.css" />
+  </head>
+  <body class="sample-presentation">
+
+    <article>
+      <section>
+# &lt; [Back](index.html)
+
+This is a sample usage of [bespoke-markdown](https://github.com/aaronpowell/bespoke-markdown)
+using **markdown as the content** of the slides.
+
+For reference, look for this file in this plugin folder structure:
+  - `demo/markdown-content.html`
+
+<br><br>
+
+Please, proceed to the next slide.
+
+      </section>
+      <section>
+The structure of the html of a presentation:
+
+```html
+<article>
+  <section>
+# markdown in the slide content
+Yayyy! It rocks to write in the markdown format.
+  </section>
+  <section>
+# A table
+And this is the second slide, with a table.
+
+|First column | Second column | Third column |
+|:------------|:-------------:|-------------:|
+|Content 1.a  | Content 2.a   | Content 3.a  |
+|Content 1.b  | Content 2.b   | Content 3.b  |
+  </section>
+</article>
+```
+Go to the next slides to **see how that code gets rendered**.
+
+
+      </section>
+      <section>
+# markdown in the slide content
+Yayyy! It rocks to write in the markdown format.
+      </section>
+      <section>
+# A table
+And this is the second slide, with a table.
+
+|First column | Second column | Third column |
+|:------------|:-------------:|-------------:|
+|Content 1.a  | Content 2.a   | Content 3.a  |
+|Content 1.b  | Content 2.b   | Content 3.b  |
+
+      </section>
+    </article>
+
+    <script src="lib/bespoke.js"></script>
+    <script src="lib/bespoke-keys.js"></script>
+    <script src="lib/bespoke-touch.js"></script>
+    <script src="lib/bespoke-classes.js"></script>
+    <script src="lib/bespoke-progress.js"></script>
+    <script src="lib/bespoke-markdown.js"></script>
+    <script src="demo.js"></script>
+  </body>
+</html>
